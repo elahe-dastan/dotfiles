@@ -35,11 +35,5 @@ main() {
 	grep "fish" /etc/shells || which fish | sudo tee -a /etc/shells
 
 	configfile "fish" "config.fish"
-
-	current_dir=${current_dir:?"current_dir must be set"}
-
-	#for script in $(ls "$current_dir/fish/*.fish"); do
-	#	msg "install $script into fish configuration"
-	#	ln $(basename "$script") "$current_dir/$script" "$HOME/.config/fish/conf.d/"
-	#done
+	configfile "fish/conf.d" "smapp.fish"
 }
