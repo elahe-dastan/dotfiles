@@ -55,7 +55,7 @@ return require('packer').startup(function()
   }
 
   -- wakatime
-  use {'wakatime/vim-wakatime'}
+  -- use {'wakatime/vim-wakatime'}
 
   -- markdown vim mode
   use {

@@ -63,12 +63,6 @@ install-conf() {
 	dotfile "wget" "wgetrc"
 }
 
-# wakatime
-install-wakatime() {
-	mkdir "$HOME/.wakatime" || true
-	dotfile "wakatime" "wakatime.cfg"
-}
-
 # tmux
 install-tmux() {
 	dotfile "tmux" "tmux.conf"
