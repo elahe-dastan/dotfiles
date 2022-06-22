@@ -28,5 +28,6 @@ main_brew() {
 }
 
 main() {
-	return 0
+	curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
+	echo "$(which fish)" | sudo tee -a /etc/shells
 }
