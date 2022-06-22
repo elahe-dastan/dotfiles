@@ -147,9 +147,6 @@ Plug 'jeetsukumaran/vim-buffergator'
 " vim plugin that provides additional text objects
 Plug 'wellle/targets.vim'
 
-" vim-wakatime
-Plug 'wakatime/vim-wakatime'
-
 " A solid language pack for Vim.
 Plug 'sheerun/vim-polyglot'
 
