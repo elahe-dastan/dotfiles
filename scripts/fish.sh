@@ -32,7 +32,7 @@ main() {
 		curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
 	fi
 
-	grep "fish" /etc/shells || echo "$(which fish)" | sudo tee -a /etc/shells
+	grep "fish" /etc/shells || which fish | sudo tee -a /etc/shells
 
 	configfile "fish" "config.fish"
 
