@@ -235,7 +235,7 @@ Plug 'jeetsukumaran/vim-buffergator'
 Plug 'wellle/targets.vim'
 
 " vim-wakatime
-Plug 'wakatime/vim-wakatime'
+" Plug 'wakatime/vim-wakatime'
 
 " A solid language pack for Vim.
 " Plug 'sheerun/vim-polyglot'
