@@ -1,0 +1,214 @@
+# source bash profile {{{
+
+test -f /etc/profile && emulate sh -c 'source /etc/profile'
+test -f "$HOME/.profile" && emulate sh -c 'source $HOME/.profile'
+
+# }}}
+
+# oh-my-zsh {{{
+
+# path to your oh-my-zsh installation.
+export ZSH=$HOME/.oh-my-zsh
+
+[ -d $ZSH ] || git clone https://github.com/ohmyzsh/ohmyzsh $ZSH
+
+# if you come from bash you might have to change your $PATH.
+path=('/usr/local/bin' $path)
+
+# set name of the theme to load. Optionally, if you set this to "random"
+# it'll load a random theme each time that oh-my-zsh is loaded.
+# see https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+ZSH_THEME="1995parham"
+
+# set list of themes to load
+# setting this variable when ZSH_THEME=random
+# cause zsh load theme from this variable instead of
+# looking in ~/.oh-my-zsh/themes/
+# An empty array have no effect
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+
+# uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
+
+# uncomment the following line to use hyphen-insensitive completion. Case
+# sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
+
+# uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE="true"
+
+# uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_ZSH_DAYS=13
+
+# uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# uncomment the following line to display red dots whilst waiting for completion.
+# COMPLETION_WAITING_DOTS="true"
+
+# uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# HIST_STAMPS="mm/dd/yyyy"
+
+# would you like to use another custom folder than $ZSH/custom?
+ZSH_CUSTOM=~/.zsh.plug
+
+# which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# example format: plugins=(rails git textmate ruby lighthouse)
+# add wisely, as too many plugins slow down shell startup.
+plugins=(
+	vi-mode
+	golang
+	rust
+	# oc helm kubectl
+	gnu-utils
+
+	proxy
+)
+
+source $ZSH/oh-my-zsh.sh
+
+# local configuration
+if [ -f $HOME/.zshrc.local ]; then
+	source $HOME/.zshrc.local
+fi
+
+# }}}
+
+# on-my-zsh-plugins {{{
+
+# }}}
+
+# dircolors {{{
+if [ -f "$HOME/.dircolors" ]; then
+  if [ "$(command -v dircolors)" ]; then
+	  eval $(dircolors "$HOME/.dircolors")
+  elif [ "$(command -v gdircolors)" ]; then
+    eval $(gdircolors "$HOME/.dircolors")
+  fi
+fi
+# }}}
+
+# def for definition {{{
+# use a wrapper around sdcv to conveniently format its output
+# on osx it uses the prebuild mac dictionary.
+function def() {
+	if [[ "$OSTYPE" == "darwin"* ]]; then
+		curl dict://dict.org/d:$1
+	else
+		sdcv -n --utf8-output --color "$@" 2>&1 |
+			fold --width=$(tput cols) |
+			less -FRX
+	fi
+}
+
+# }}}
+
+# man with bat {{{
+
+# use bat/batcat for viewing manpages
+if command -v bat &>/dev/null; then
+	export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+elif command -v batcat &>/dev/null; then
+	export MANPAGER="sh -c 'col -bx | batcat -l man -p'"
+fi
+
+# }}}
+
+# aliases {{{
+
+# set personal aliases
+# for a full list of active aliases, run `alias`.
+alias grep="grep --color=auto"
+alias vi="vim"
+alias r="source ~/.zshenv && source ~/.zshrc"
+alias emacs="emacs -nw"
+
+# }}}
+
+# navi {{{
+
+_call_navi() {
+	local selected
+	if [ -n "$LBUFFER" ]; then
+		if selected="$(printf "%s" "$(navi --print --fzf-overrides '--no-select-1' --query "${LBUFFER}" </dev/tty)")"; then
+			LBUFFER="$selected"
+		fi
+	else
+		if selected="$(printf "%s" "$(navi --print </dev/tty)")"; then
+			LBUFFER="$selected"
+		fi
+	fi
+	zle redisplay
+}
+
+zle -N _call_navi
+
+bindkey '^h' _call_navi
+
+# }}}
+
+# kubernetes {{{
+
+_call_kubectx() {
+  kubectx </dev/tty
+}
+
+zle -N _call_kubectx
+
+bindkey '^t' _call_kubectx
+
+# }}}
+
+# conda {{{
+
+if [ -d "$HOME/miniconda3" ]; then
+	# >>> conda initialize >>>
+	# !! Contents within this block are managed by 'conda init' !!
+	__conda_setup="$("$HOME/miniconda3/bin/conda" 'shell.zsh' 'hook' 2>/dev/null)"
+	if [ $? -eq 0 ]; then
+		eval "$__conda_setup"
+	else
+		if [ -f "$HOME/miniconda3/etc/profile.d/conda.sh" ]; then
+			. "$HOME/miniconda3/etc/profile.d/conda.sh"
+		else
+			export PATH="$HOME/miniconda3/bin:$PATH"
+		fi
+	fi
+	unset __conda_setup
+	# <<< conda initialize <<<
+fi
+
+# }}}
+
+# history {{{
+
+autoload -U history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+
+# search history with text already entered at the prompt in zsh
+bindkey "^[OA" history-beginning-search-backward-end
+bindkey "^[OB" history-beginning-search-forward-end
+
+# }}}
+
+# vim-mode {{{
+
+# edit command in vim
+bindkey -M vicmd v edit-command-line
+
+# }}}
