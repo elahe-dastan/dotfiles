@@ -4,20 +4,19 @@
  / _` |/ _ \| __| |_| | |/ _ \/ __|
 | (_| | (_) | |_|  _| | |  __/\__ \
  \__,_|\___/ \__|_| |_|_|\___||___/
+      _       _                    _           _
+  ___| | __ _| |__   ___        __| | __ _ ___| |_ __ _ _ __
+ / _ \ |/ _` | '_ \ / _ \_____ / _` |/ _` / __| __/ _` | '_ \
+|  __/ | (_| | | | |  __/_____| (_| | (_| \__ \ || (_| | | | |
+ \___|_|\__,_|_| |_|\___|      \__,_|\__,_|___/\__\__,_|_| |_|
 
- _  ___   ___  ____                   _
-/ |/ _ \ / _ \| ___| _ __   __ _ _ __| |__   __ _ _ __ ___
-| | (_) | (_) |___ \| '_ \ / _` | '__| '_ \ / _` | '_ ` _ \
-| |\__, |\__, |___) | |_) | (_| | |  | | | | (_| | | | | | |
-|_|  /_/   /_/|____/| .__/ \__,_|_|  |_| |_|\__,_|_| |_| |_|
-                    |_|
 ```
 
-![GitHub](https://img.shields.io/github/license/1995parham/dotfiles?logo=gnu&style=flat-square)
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/1995parham/dotfiles/Install%20dotfiles?label=install&logo=github&style=flat-square)
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/1995parham/dotfiles/Shell%20Script%20Lint?label=sh-lint&logo=github&style=flat-square)
-[![Ansible](https://img.shields.io/badge/ansible-ready-black?logo=ansible&style=flat-square)](https://github.com/1995parham-me/ansible-role)
-![GitHub repo size](https://img.shields.io/github/repo-size/1995parham/dotfiles?style=flat-square)
+![GitHub](https://img.shields.io/github/license/elahe-dastan/dotfiles?logo=gnu&style=flat-square)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/elahe-dastan/dotfiles/Install%20dotfiles?label=install&logo=github&style=flat-square)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/elahe-dastan/dotfiles/Shell%20Script%20Lint?label=sh-lint&logo=github&style=flat-square)
+[![Ansible](https://img.shields.io/badge/ansible-ready-black?logo=ansible&style=flat-square)](https://github.com/elahe-dastan-me/ansible-role)
+![GitHub repo size](https://img.shields.io/github/repo-size/elahe-dastan/dotfiles?style=flat-square)
 
 ## Introduction
 
@@ -34,7 +33,7 @@ Special thanks to [@elahe-dastan](https://github.com/elahe-dastan) for using thi
 The following command creates a basic directory structure and clones the _dotfiles_ repository:
 
 ```sh
-curl -sL https://raw.githubusercontent.com/1995parham/dotfiles/main/over-the-air-installation.sh | bash
+curl -sL https://raw.githubusercontent.com/elahe-dastan/dotfiles/main/over-the-air-installation.sh | bash
 ```
 
 Install required softwares with pacman/brew.
