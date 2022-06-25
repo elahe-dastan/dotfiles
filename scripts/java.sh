@@ -38,6 +38,7 @@ main_pacman() {
 	sudo pacman -Syu --needed --noconfirm sbt
 	# yay -Syu --needed --noconfirm apache-spark
 
+	msg 'install java-coc manually because of unfair sanctions'
 	rm -Rf "$HOME/.config/coc/extensions/coc-java-data/server" || true
 	mkdir -p "$HOME/.config/coc/extensions/coc-java-data/server"
 	cd "$HOME/.config/coc/extensions/coc-java-data/server" || return
