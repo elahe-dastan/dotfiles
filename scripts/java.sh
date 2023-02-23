@@ -27,20 +27,7 @@ main_apt() {
 main_pacman() {
 	require_pacman jdk17-openjdk gradle maven
 	msg "install scala because of the queen"
-<<<<<<< HEAD
 	require_pacman sbt
-=======
-	sudo pacman -Syu --needed --noconfirm sbt
-	# yay -Syu --needed --noconfirm apache-spark
-
-	msg 'install java-coc manually because of unfair sanctions'
-	rm -Rf "$HOME/.config/coc/extensions/coc-java-data/server" || true
-	mkdir -p "$HOME/.config/coc/extensions/coc-java-data/server"
-	cd "$HOME/.config/coc/extensions/coc-java-data/server" || return
-	proxy_start && aria2c http://download.eclipse.org/jdtls/snapshots/jdt-language-server-latest.tar.gz && proxy_stop
-	tar xvfz jdt-language-server-latest.tar.gz
-	cd - || return
->>>>>>> d87896ad (feat: update java installation script)
 }
 
 main_brew() {
