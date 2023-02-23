@@ -13,8 +13,8 @@
 ```
 
 ![GitHub](https://img.shields.io/github/license/elahe-dastan/dotfiles?logo=gnu&style=flat-square)
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/elahe-dastan/dotfiles/Install%20dotfiles?label=install&logo=github&style=flat-square)
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/elahe-dastan/dotfiles/Shell%20Script%20Lint?label=sh-lint&logo=github&style=flat-square)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/elahe-dastan/dotfiles/install?label=install&logo=github&style=flat-square&branch=main)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/elahe-dastan/dotfiles/sh-lint?label=sh-lint&logo=github&style=flat-square&branch=main)
 [![Ansible](https://img.shields.io/badge/ansible-ready-black?logo=ansible&style=flat-square)](https://github.com/elahe-dastan-me/ansible-role)
 ![GitHub repo size](https://img.shields.io/github/repo-size/elahe-dastan/dotfiles?style=flat-square)
 
