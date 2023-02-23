@@ -27,11 +27,7 @@ main_brew() {
 	podman machine start || true
 
 	msg "podman and dive configuration"
-<<<<<<< HEAD
 	configfile containers registries.conf podman
-=======
-	configfile containers "" podman
->>>>>>> 330e1956 (feat: add podman installation for osx)
 }
 
 main_pacman() {
@@ -40,12 +36,9 @@ main_pacman() {
 
 	require_aur hadolint-bin lazydocker-bin
 
-<<<<<<< HEAD
-=======
 	msg "install lazydocker with yay"
 	yay -Syu --needed --noconfirm lazydocker-bin
 
->>>>>>> 330e1956 (feat: add podman installation for osx)
 	msg "podman and dive configuration"
 	configfile dive "" podman
 	configfile containers "" podman
