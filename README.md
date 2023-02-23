@@ -34,8 +34,6 @@ Special thanks to [@elahe-dastan](https://github.com/elahe-dastan) for using thi
 
 The following command creates a basic directory structure and clones the _dotfiles_ repository:
 
-<<<<<<< HEAD
-
 ```bash
 curl -sL https://raw.githubusercontent.com/elahe-dastan/dotfiles/main/over-the-air-installation.sh | bash
 ```
