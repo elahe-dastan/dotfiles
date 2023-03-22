@@ -21,6 +21,7 @@ packages=(zsh tmux htop aria2 curl bat vim jq yamllint fzf mosh figlet)
 brew_packages=(coreutils k6 inetutils inxi fontconfig wget tmuxp dua-cli)
 apt_packages=(bmon atop)
 pacman_packages=(
+	perl-image-exiftool
 	mtr
 	fd
 	jless
@@ -43,14 +44,15 @@ pacman_packages=(
 	man-db
 	bandwhich
 	lsof
+	vhs
 )
 yay_packages=(jcal actionlint-bin mqttui mprocs cbonsai)
 
 main_apt() {
-	sudo apt-get update -q
+	sudo apt update -yq
 
 	msg "install ${apt_packages[*]} + ${packages[*]} with apt"
-	sudo apt-get install "${apt_packages[@]}" "${packages[@]}"
+	require_apt "${apt_packages[@]}" "${packages[@]}"
 }
 
 main_pacman() {

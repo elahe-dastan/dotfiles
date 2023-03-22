@@ -18,6 +18,14 @@ main_pacman() {
 
 main() {
 	configfile khard khard.conf
+}
 
-	git clone git@github.com:parham-alvani/addressbook.git "$HOME/Documents/Git/parham/parham-alvani/addressbook" || true
+main_parham() {
+	if [ ! -d "$HOME/Documents/Git/parham/parham-alvani/" ]; then
+		mkdir -p "$HOME/Documents/Git/parham/parham-alvani/"
+	fi
+
+	cd "$HOME/Documents/Git/parham/parham-alvani/" || return
+	clone parham-alvani/addressbook git@github.com:
+	cd - &>/dev/null || return
 }

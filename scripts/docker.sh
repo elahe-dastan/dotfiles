@@ -31,6 +31,10 @@ main_pacman() {
 
 	require_aur hadolint-bin lazydocker-bin
 
+	dotfiles_root=${dotfiles_root:?"dotfiles_root must be set"}
+	sudo mkdir /etc/docker || true
+	sudo cp "$dotfiles_root/docker/daemon.json /etc/docker/"
+
 	msg 'docker service with systemd'
 	sudo systemctl enable --now docker.service
 
@@ -39,7 +43,7 @@ main_pacman() {
 	sudo usermod -aG docker "$USER"
 
 	if yes_or_no "docker" "do you want to use v2ray as a docker proxy?"; then
-		sudo mkdir -p /etc/systemd/system/docker.service.d/
+		sudo mkdir -p /etc/systemd/system/docker.service.d/ || true
 		echo '
 [Service]
 Environment="HTTP_PROXY=http://127.0.0.1:1080/"
@@ -47,6 +51,13 @@ Environment="HTTPS_PROXY=http://127.0.0.1:1080/"
     ' | sudo tee /etc/systemd/system/docker.service.d/http-proxy.conf
 		sudo systemctl daemon-reload
 	fi
+
+	sudo mkdir -p /etc/systemd/system/containerd.service.d/ || true
+	echo '
+[Service]
+LimitNOFILE=1048576
+    ' | sudo tee /etc/systemd/system/containerd.service.d/override.conf
+	sudo systemctl daemon-reload
 
 	newgrp docker
 }

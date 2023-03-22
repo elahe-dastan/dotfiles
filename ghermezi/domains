@@ -49,6 +49,7 @@
 .mxpnl.com
 .mixpanel.com
 .grafana.com
+.grafana.org
 .angular-maps.com
 .medium.com
 .digitalocean.com
@@ -235,6 +236,9 @@
 .superuser.com
 .stackexchange.com
 .openai.com
+.figma.com
+.rclone.org
+.gunicorn.org
 
 .radiojavan.com
 .rjassets.com
@@ -251,7 +255,6 @@
 .igram.io
 .30nama.com
 .lastminuteengineers.com
-
 .telegram.org
-
+.libgen.rs
 .offerland.ca

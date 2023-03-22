@@ -15,11 +15,11 @@ usage() {
 main_pacman() {
 	dotfiles_root=${dotfiles_root:?"dotfiles_root must be set"}
 
-	require_pacman llvm14
+	require_pacman llvm
 
 	msg 'install and configure sway, swaylock and waybar'
-	require_pacman swaylock swayidle grim xdg-user-dirs wl-clipboard noto-fonts swaybg
-	require_aur waybar-git
+	require_pacman swaylock swayidle grim xdg-user-dirs wl-clipboard noto-fonts swaybg waybar
+	# require_aur waybar-git
 	require_pacman xdg-desktop-portal-wlr xdg-utils
 	require_pacman sway
 	# require_aur wlroots-git sway-git
@@ -91,4 +91,14 @@ main_pacman() {
 	# nautilus file manager (a.k.a files)
 	# https://wiki.archlinux.org/title/GNOME/Files
 	require_pacman ffmpegthumbnailer gst-libav gst-plugins-ugly nautilus
+}
+
+main_parham() {
+	msg 'the wallpapers that we love'
+
+	if [ ! -d "$HOME/Pictures/" ]; then
+		mkdir -p "$HOME/Pictures/"
+	fi
+
+	clone parham-alvani/wallpapers https://github.com/ "$HOME/Pictures/GoSiMac"
 }

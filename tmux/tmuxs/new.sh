@@ -1,6 +1,12 @@
 #!/bin/bash
 set -e
 
+# a global variable that points to tmuxs root directory.
+tmuxs_root="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# shellcheck source=./scripts/lib/proxy.sh
+source "$tmuxs_root/../../scripts/lib/proxy.sh"
+
 project=$(
 	fd -tdirectory -H ^\.git$ ~/Documents/Git -x dirname |
 		fzf --color=fg:#ffa500,hl:#a9a9a9,prompt:#adff2f,separator:#ffe983,info:#ffe2ec \
@@ -36,7 +42,8 @@ cd "$project" || exit
 
 if [ -f Pipfile ]; then
 	if [[ "$(command -v pipenv)" ]]; then
-		pipenv install --dev --skip-lock
+		proxy_start && pipenv install --verbose --dev --skip-lock && proxy_stop
+
 		# shellcheck disable=2016
 		commands=('[ -d $(pipenv --venv) ] && source $(pipenv --venv)/bin/activate && reset' "${commands[@]}")
 	fi
@@ -44,7 +51,7 @@ fi
 
 cd -
 
-tmux kill-window -t "$current_session:$name" || true
+tmux kill-window -t "$current_session:=$name" || true
 tmux new-window -t "$current_session" -c "$project" -n "$name" "$(printf "%s;" "${commands[@]}")$SHELL"
 tmux split-window -t "$current_session:$name" -c "$project" "$(printf "%s;" "${commands[@]}")$SHELL"
 tmux split-window -t "$current_session:$name" -c "$project" "$(printf "%s;" "${commands[@]}")$SHELL"
