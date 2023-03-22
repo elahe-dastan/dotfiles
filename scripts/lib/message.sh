@@ -9,7 +9,7 @@ F_RESET="\033[39m"
 
 function yes_or_no() {
 	yes_to_all=${yes_to_all:-0}
-	if $yes_to_all; then
+	if [ "$yes_to_all" == 1 ]; then
 		return 0
 	fi
 

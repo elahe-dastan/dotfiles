@@ -13,10 +13,10 @@ windows:
   - window_name: scratch
     layout: tiled
     start_directory: ~/Downloads
+    focus: true
     panes:
+      - shell_command:
+          - chafa ~/.config/waybar/img/offerland.svg --size 80 --clear | less
       - focus: true
-        shell_command:
-          - chafa ~/.config/waybar/img/offerland.svg
-      - pane
       - pane
       - pane
