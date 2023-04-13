@@ -29,7 +29,6 @@ _end() {
 _usage() {
 	echo ""
 	echo "usage: $program_name [-y] [-h] [-f] script [script options]"
-	echo "  -f   force"
 	echo "  -h   display help"
 	echo "  -d   as dependency (internal usage)"
 	echo "  -y   yes to all"
@@ -39,9 +38,6 @@ _usage() {
 _main() {
 	## global variables ##
 	######################
-
-	# global variable indicates force in specific script and runs script with root
-	local force=false
 
 	# global variable indicates show help for user in specific script
 	# there is no need to use it in your script
@@ -60,9 +56,6 @@ _main() {
 		case $argv in
 		h)
 			show_help=true
-			;;
-		f)
-			force=true
 			;;
 		d)
 			as_dependency=true
@@ -87,10 +80,8 @@ _main() {
 
 	# handles root user
 	if [[ $EUID -eq 0 ]]; then
-		message "pre" "it must run without the root permissions with a regular user."
-		if [ $force = false ]; then
-			exit 1
-		fi
+		message "pre" "it must run without the root permissions with a regular user." "error"
+		return 1
 	fi
 
 	# handles given script run and result
@@ -204,7 +195,7 @@ install() {
 		if declare -f main_brew >/dev/null; then
 			main_brew
 		else
-			msg "main_brew not found, there is nothing to do"
+			msg "main_brew not found, there is nothing to do" "error"
 			exit
 		fi
 
@@ -229,7 +220,7 @@ install() {
 		if declare -f main_apt >/dev/null; then
 			main_apt
 		else
-			msg "main_apt not found, there is nothing to do"
+			msg "main_apt not found, there is nothing to do" "error"
 			exit
 		fi
 
@@ -242,7 +233,7 @@ install() {
 		if declare -f main_pacman >/dev/null; then
 			main_pacman
 		else
-			msg "main_pacman not found, there is nothing to do"
+			msg "main_pacman not found, there is nothing to do" "error"
 			exit
 		fi
 

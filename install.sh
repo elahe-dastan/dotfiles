@@ -41,7 +41,7 @@ requirements=(zsh tmux vim)
 # check the existence of required softwares
 for cmd in "${requirements[@]}"; do
 	if ! hash "$cmd" 2>/dev/null; then
-		message "pre" "Please install $cmd before using this script"
+		message "pre" "Please install $cmd before using this script" "error"
 		exit 1
 	fi
 done
@@ -80,19 +80,29 @@ install-tmux() {
 		mkdir -p ~/.tmux/plugins
 		git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 	fi
-	~/.tmux/plugins/tpm/bin/install_plugins
+	"$HOME/.tmux/plugins/tpm/bin/install_plugins"
 }
 
 # zsh
 install-zsh() {
-	dotfile "zsh" "zshrc"
+	dotfile "zsh" "zshrc.shared"
 	dotfile "zsh" "zshenv"
 	dotfile "zsh" "zsh.plug"
-}
 
-# git
-install-git() {
-	configfile "git"
+	# create zshrc if it doesn't exists
+	if [ ! -f "$HOME/.zshrc" ]; then
+		touch "$HOME/.zshrc"
+	fi
+
+	# source zshrc.shared
+	if ! grep -q -F "source \$HOME/.zshrc.shared" "$HOME/.zshrc"; then
+		echo "source \$HOME/.zshrc.shared" | tee -a "$HOME/.zshrc"
+	fi
+
+	# provide dotfile home variable
+	if ! grep -q -F "export DOTFILES_ROOT=" "$HOME/.zshrc"; then
+		echo "export DOTFILES_ROOT=\"$dotfiles_root\"" | tee -a "$HOME/.zshrc"
+	fi
 }
 
 # bin
@@ -108,7 +118,7 @@ install-general() {
 }
 
 # calls each module's install function.
-modules=(conf tmux wakatime zsh git vim bin general)
+modules=(conf tmux wakatime zsh vim bin general)
 for module in "${modules[@]}"; do
 	message "$module" "---"
 	echo

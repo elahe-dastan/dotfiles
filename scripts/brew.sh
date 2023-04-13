@@ -12,7 +12,38 @@ usage() {
   '
 }
 
-main() {
+main_brew() {
+	# xcode-select --install
+
+	msg "use pre-4.0.0 behaviour by cloning the Homebrew/homebrew-core tap during installation
+this will make Homebrew install formulae and casks from the homebrew/core and homebrew/cask
+taps using local checkouts of these repositories instead of Homebrew’s API."
+
+	export HOMEBREW_NO_INSTALL_FROM_API=1
+
+	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+	# shellcheck disable=2016
+	(
+		echo
+		echo 'eval "$(/opt/homebrew/bin/brew shellenv)"'
+	) >>/Users/parham/.zprofile
+	eval "$(/opt/homebrew/bin/brew shellenv)"
+
+	# shellcheck disable=2016
+	echo 'export PATH="/opt/homebrew/bin:$PATH"' >>~/.zshrc
+
+	msg 'add cask-versions for finding alternative versions of Casks'
+	brew tap homebrew/cask-versions
+}
+
+main_pacman() {
+	return 1
+}
+
+main_apt() {
+	require_apt build-essential procps curl file git
+
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 	msg "add homebrew to your profile"

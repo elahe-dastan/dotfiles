@@ -33,7 +33,10 @@ main_pacman() {
 
 	dotfiles_root=${dotfiles_root:?"dotfiles_root must be set"}
 	sudo mkdir /etc/docker || true
-	sudo cp "$dotfiles_root/docker/daemon.json /etc/docker/"
+	sudo touch /etc/docker/daemon.json
+	msg 'merge provided configuration with the one that is available on system'
+	r=$(jq -s '.[0] * (.[1] // {})' "$dotfiles_root/docker/daemon.json" "/etc/docker/daemon.json")
+	echo "$r" | sudo tee "/etc/docker/daemon.json"
 
 	msg 'docker service with systemd'
 	sudo systemctl enable --now docker.service
@@ -59,7 +62,9 @@ LimitNOFILE=1048576
     ' | sudo tee /etc/systemd/system/containerd.service.d/override.conf
 	sudo systemctl daemon-reload
 
-	newgrp docker
+	# the following command create a new shell which is not
+	# good to run in a script.
+	# newgrp docker
 }
 
 main() {

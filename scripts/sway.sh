@@ -78,9 +78,8 @@ main_pacman() {
 	# msg 'allow run gui application with sudo (e.g. gparted)'
 	# xhost +SI:localuser:root
 
-	msg 'gnome-keyring/seahorse setup with ~/.profile'
+	msg 'gnome-keyring/seahorse setup'
 	require_pacman gnome-keyring seahorse
-	dotfile sway profile
 	mkdir -p "$HOME/.gnupg"
 	linker gnupg "$dotfiles_root/sway/gpg/gpg-agent.conf" "$HOME/.gnupg/gpg-agent.conf"
 
@@ -100,5 +99,7 @@ main_parham() {
 		mkdir -p "$HOME/Pictures/"
 	fi
 
-	clone parham-alvani/wallpapers https://github.com/ "$HOME/Pictures/GoSiMac"
+	cd "$HOME/Pictures" || return
+
+	clone parham-alvani/wallpapers https://github.com/ "GoSiMac"
 }

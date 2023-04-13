@@ -40,22 +40,31 @@ fi
 
 cd "$project" || exit
 
+(which onefetch && onefetch) || true
+read -n 1 -s -r -p "press any key to continue"
+echo
+(which tokei && tokei) || true
+read -n 1 -s -r -p "press any key to continue"
+echo
+
 if [ -f Pipfile ]; then
 	if [[ "$(command -v pipenv)" ]]; then
-		proxy_start && pipenv install --verbose --dev --skip-lock && proxy_stop
+		pipenv install --verbose --dev --skip-lock
 
 		# shellcheck disable=2016
-		commands=('[ -d $(pipenv --venv) ] && source $(pipenv --venv)/bin/activate && reset' "${commands[@]}")
+		commands+=('pipenv shell --fancy' "${commands[@]}")
 	fi
 fi
 
 cd -
 
-tmux kill-window -t "$current_session:=$name" || true
+tmux kill-window -t "$current_session:=$name" &>/dev/null || true
 tmux new-window -t "$current_session" -c "$project" -n "$name" "$(printf "%s;" "${commands[@]}")$SHELL"
 tmux split-window -t "$current_session:$name" -c "$project" "$(printf "%s;" "${commands[@]}")$SHELL"
 tmux split-window -t "$current_session:$name" -c "$project" "$(printf "%s;" "${commands[@]}")$SHELL"
-commands+=("git project")
+# show project information on the last pane. this doesn't work with pipenv shell
+# so we don't have information on pythonic projects.
+# commands+=("git project")
 tmux split-window -t "$current_session:$name" -c "$project" "$(printf "%s;" "${commands[@]}")$SHELL"
 tmux select-layout -t "$current_session:$name" tiled
 tmux select-pane -t 0

@@ -1,13 +1,20 @@
 #!/bin/bash
 
 function require_brew() {
+	declare -a to_install_pkg
+	to_install_pkg=()
+
 	for pkg in "$@"; do
 		running "require" " brew $pkg"
 		if ! brew list --versions "$pkg" &>/dev/null; then
-			action "require" "勒brew install $pkg"
-			brew install "$pkg"
+			to_install_pkg+=("$pkg")
 		fi
 	done
+
+	if [ ${#to_install_pkg[@]} -ne 0 ]; then
+		action "require" "勒brew install ${to_install_pkg[*]}"
+		brew install "${to_install_pkg[@]}"
+	fi
 }
 
 function require_brew_head() {
@@ -34,23 +41,37 @@ function require_brew_cask() {
 }
 
 function require_apt() {
+	declare -a to_install_pkg
+	to_install_pkg=()
+
 	for pkg in "$@"; do
 		running "require" " apt $pkg"
 		if ! dpkg -s "$pkg" &>/dev/null; then
-			action "require" "勒apt install $pkg"
-			sudo apt install -y "$pkg"
+			to_install_pkg+=("$pkg")
 		fi
 	done
+
+	if [ ${#to_install_pkg[@]} -ne 0 ]; then
+		action "require" "勒apt install ${to_install_pkg[*]}"
+		sudo apt -qy install "${to_install_pkg[@]}"
+	fi
 }
 
 function require_pacman() {
+	declare -a to_install_pkg
+	to_install_pkg=()
+
 	for pkg in "$@"; do
 		running "require" " pacman $pkg"
 		if ! pacman -Qi "$pkg" &>/dev/null; then
-			action "require" "勒pacman -Sy $pkg"
-			sudo pacman -Sy --noconfirm "$pkg"
+			to_install_pkg+=("$pkg")
 		fi
 	done
+
+	if [ ${#to_install_pkg[@]} -ne 0 ]; then
+		action "require" "勒pacman -Sy ${to_install_pkg[*]}"
+		sudo pacman -Sy --noconfirm "${to_install_pkg[@]}"
+	fi
 }
 
 function require_aur() {
@@ -88,12 +109,12 @@ function require_pip() {
 }
 
 function clone() {
-	repo=$1
-	url=$2
+	repo=${1:?"clone requires repository name"}
+	url=${2:?"clone requires repository url"}
 	dir=${3:-$(basename "$repo")}
 
 	if [ ! -d "$dir" ]; then
-		if git clone "$url$repo" &>/dev/null; then
+		if git clone "$url$repo" "$dir" &>/dev/null; then
 			action git "$repo ${F_GREEN}󰄲${F_RESET}"
 		else
 			action git "$repo ${F_RED}󱋭${F_RESET}"

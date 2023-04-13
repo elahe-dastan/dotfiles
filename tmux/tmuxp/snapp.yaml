@@ -9,20 +9,13 @@ windows:
       - start_directory: ~/Documents/Git/parham/snapp/data-infra/ignite
       - start_directory: ~/Documents/Git/parham/snapp/dispatching/nats/ignite
 
-  - window_name: interview
-    layout: even-horizontal
-    start_directory: ~/Documents/Git/parham/snapp/dispatching/interview
-    panes:
-      - pane
-      - pane
-
   - window_name: scratch
     layout: tiled
     start_directory: ~/Downloads
     focus: true
     panes:
       - shell_command:
-          - chafa ~/.config/waybar/img/snapp.svg --size 80 --clear | less
+          - chafa $DOTFILES_ROOT/sway/waybar/img/snapp.svg --size 80 --clear | less
       - focus: true
       - pane
       - pane

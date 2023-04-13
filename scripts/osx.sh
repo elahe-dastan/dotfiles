@@ -17,7 +17,10 @@ main_brew() {
 
 	# brew install --cask iglance
 
-	msg 'osx keyring'
+	# use rosetta to run intel applications on apple silicon.
+	softwareupdate --install-rosetta --agree-to-license
+
+	msg 'use osx-keychain for gpg passphase'
 	brew install pinentry-mac
 	brew install --cask gpg-suite-no-mail
 	mkdir -p "$HOME/.gnupg"
