@@ -1,0 +1,10 @@
+---
+session_name: Main
+windows:
+  - window_name: bob
+    layout: even-vertical
+    start_directory: /bob/elahe
+    shell_command_before: micromamba activate
+    panes:
+      - jupyter-lab --ip=0.0.0.0
+      - pane
