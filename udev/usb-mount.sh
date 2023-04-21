@@ -13,12 +13,15 @@
 #
 # sudo btrfs filesystem label /dev/sda2 parham-main
 
+set -eu
+
 declare -a labels
 labels=(
 	"parham-main"
 	"parham-secret"
 	"PARHAM-KEYS"
 	"Ventoy"
+	"PARHAM-SHRD"
 	"parham-movies"
 )
 
@@ -40,7 +43,7 @@ _mount() {
 	eval "$(/sbin/blkid -o udev "${device}")"
 
 	# Figure out a mount point to use
-	label=${ID_FS_LABEL}
+	label="${ID_FS_LABEL}"
 	if [[ -z "${label}" ]]; then
 		echo "device with empty label is not acceptable"
 

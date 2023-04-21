@@ -1,27 +1,19 @@
 #!/bin/bash
-# In The Name of God
-# ========================================
-# [] File Name : starship.sh
-#
-# [] Creation Date : 02-04-2021
-#
-# [] Created By : Parham Alvani <parham.alvani@gmail.com>
-# =======================================
 
 usage() {
-	echo "you prompt but in rust"
-}
-
-main_apt() {
-	msg "there is nothing that we can do"
-}
-
-main_brew() {
-	brew install starship
+	echo -n "the minimal, blazing-fast, and infinitely customizable prompt for any shell!"
+	echo '
+     _                 _     _
+ ___| |_ __ _ _ __ ___| |__ (_)_ __
+/ __| __/ _| | |__/ __| |_ \| | |_ \
+\__ \ || (_| | |  \__ \ | | | | |_) |
+|___/\__\__,_|_|  |___/_| |_|_| .__/
+                              |_|
+  '
 }
 
 main_pacman() {
-	sudo pacman -Syu --noconfirm --needed starship
+	require_pacman starship
 }
 
 main() {

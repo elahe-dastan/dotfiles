@@ -22,7 +22,11 @@ main_apt() {
 }
 
 main_pacman() {
-	require_aur navi
+	require_pacman navi
+}
+
+main() {
+	configfile navi
 }
 
 main_parham() {
