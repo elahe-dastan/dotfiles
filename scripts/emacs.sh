@@ -40,7 +40,9 @@ main_apt() {
 main_pacman() {
 	require_pacman ripgrep aspell aspell-en fd
 
-	PS3="select emacs installation kind:"
+	installed=$(pacman -Qqs "emacs" || echo "there is no installed emacs")
+
+	PS3="select emacs installation kind ($installed):"
 
 	kinds=(
 		"emacs-nativecomp: The extensible, customizable, self-documenting real-time display editor with native compilation enabled"
@@ -101,13 +103,9 @@ main() {
 main_parham() {
 	msg "hello parham, clone your private repositories"
 
-	if [ ! -d "$HOME/org" ]; then
-		git clone git@github.com:parham-alvani/notes "$HOME/org"
-	fi
+	clone git@github.com:parham-alvani/notes "$HOME" "org"
 
-	if [ ! -d "$HOME/tasks" ]; then
-		git clone git@github.com:parham-alvani/tasks "$HOME/tasks"
-	fi
+	clone git@github.com:parham-alvani/tasks "$HOME" "tasks"
 
 	dotfiles_root=${dotfiles_root:?"dotfiles_root must be set"}
 	(mkdir -p "$HOME/.config/emacs/.local/etc/workspaces/" || true) && cp "$dotfiles_root/emacs/sessions/main" "$HOME/.config/emacs/.local/etc/workspaces/"

@@ -2,6 +2,10 @@
 # https://about.gitlab.com/blog/2021/01/27/we-need-to-talk-no-proxy/
 
 proxy_start() {
+	if ! ss -tunl | grep :1080 &>/dev/null; then
+		return 0
+	fi
+
 	echo -e "\033[38;5;46m[proxy] \033[38;5;202msetup proxy based on local http proxy which is setup by v2ray\033[39m"
 	echo -e "\033[38;5;46m[proxy] \033[38;5;202mpress enter to continue or anything else to disable it\033[39m"
 	read -r accept
@@ -11,7 +15,7 @@ proxy_start() {
 	fi
 
 	echo
-	curl --max-time 10 ifconfig.io/country_code || return 1
+	curl --max-time 10 ipconfig.io/country || return 1
 
 	export ftp_proxy="http://127.0.0.1:1080"
 	export http_proxy="http://127.0.0.1:1080"
@@ -19,7 +23,7 @@ proxy_start() {
 	alias sudo='sudo -E'
 
 	echo
-	curl --max-time 10 ifconfig.io/country_code || proxy_stop
+	curl --max-time 10 ipconfig.io/country || proxy_stop
 	echo
 }
 

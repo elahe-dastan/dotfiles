@@ -104,30 +104,41 @@ function require_go() {
 function require_pip() {
 	for pkg in "$@"; do
 		action "require" " python $pkg"
-		python -mpip install --user --pre -U "$pkg" 2>/dev/null
+		pipx install --include-deps --pip-args pre "$pkg"
 	done
 }
 
 function clone() {
-	repo=${1:?"clone requires repository name"}
-	url=${2:?"clone requires repository url"}
-	dir=${3:-$(basename "$repo")}
+	repo=${1:?"clone requires repository"}
+	path=${2:-"."}
+	dir=${3:-""}
 
-	if [ ! -d "$dir" ]; then
-		if git clone "$url$repo" "$dir" &>/dev/null; then
-			action git "$repo ${F_GREEN}󰄲${F_RESET}"
+	if [ ! -d "$path" ]; then
+		mkdir -p "$path"
+	fi
+
+	repo_name="$(rg -o '\w([:/]\w+[^?]+)' -r '$1' <<<"$repo")"
+	repo_name=${repo_name:1}
+
+	if [ "$dir" = "" ]; then
+		dir="$(basename "$repo_name")"
+	fi
+
+	if [ ! -d "$path/$dir" ]; then
+		if git clone "$repo" "$path/$dir" &>/dev/null; then
+			action git "$repo_name ${F_GREEN}󰄲${F_RESET}"
 		else
-			action git "$repo ${F_RED}󱋭${F_RESET}"
+			action git "$repo_name ${F_RED}󱋭${F_RESET}"
 		fi
 	else
-		cd "$dir" || return
+		cd "$path/$dir" || return
 
 		origin_url=$(git remote get-url origin 2>/dev/null)
 
-		if [[ "$url$repo" == "${origin_url%.git}" ]]; then
-			action git "$repo ${F_GRAY}${F_RESET}"
+		if [[ "$repo" == "${origin_url%.git}" ]]; then
+			action git "$repo_name ${F_GRAY}${F_RESET}"
 		else
-			action git "$repo ($url$repo != $origin_url) ${F_RED}󱋭${F_RESET}"
+			action git "$repo_name ($repo != $origin_url) ${F_RED}󱋭${F_RESET}"
 		fi
 
 		cd - &>/dev/null || return

@@ -11,6 +11,14 @@ usage() {
   '
 }
 
+declare -A primary_shecan_dns
+primary_shecan_dns["shecan-pro"]="178.22.122.101"
+primary_shecan_dns["shecan"]="178.22.122.100"
+
+declare -A secondary_shecan_dns
+secondary_shecan_dns["shecan-pro"]="185.51.200.1"
+secondary_shecan_dns["shecan"]="185.51.200.2"
+
 main_pacman() {
 	require_pacman dnsmasq
 
@@ -31,7 +39,14 @@ main_pacman() {
 		break
 	done
 
-	copycat "dns" "dns/$kind.conf" "/etc/NetworkManager/dnsmasq.d/shecan.conf"
+	dotfiles_root=${dotfiles_root:?"dotfiles_root must be set"}
+	mapfile -t domains <<<"$(cat "$dotfiles_root/dns/domains-$kind")"
+	domains_dnsmasq="$(printf '/%s' "${domains[@]}")"
+	echo -e "server=$domains_dnsmasq/${primary_shecan_dns[$kind]}\nserver=$domains_dnsmasq/${secondary_shecan_dns[$kind]}" |
+		sudo tee /etc/NetworkManager/dnsmasq.d/shecan.conf
+
+	copycat "dns" dns/1995parham.conf /etc/NetworkManager/dnsmasq.d/1995parham.conf
+
 	dnsmasq --test --conf-file=/dev/null --conf-dir=/etc/NetworkManager/dnsmasq.d
 	sudo nmcli general reload
 
@@ -44,7 +59,6 @@ main_pacman() {
 
 	if [ -d "/etc/docker" ]; then
 		sudo touch /etc/docker/daemon.json
-		dotfiles_root=${dotfiles_root:?"dotfiles_root must be set"}
 
 		msg 'merge dns configuration for docker with system current configuration'
 		r=$(jq -s '.[0] * (.[1] // {})' "$dotfiles_root/dns/$kind-docker.json" "/etc/docker/daemon.json")
