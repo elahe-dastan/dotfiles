@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export dependencies=('buku')
+
 usage() {
 	echo "install firefox, firefox-developer-edition and tridactyl configuration"
 	echo '
@@ -37,6 +39,10 @@ main_pacman() {
 
 	if yes_or_no 'browser' 'do you want to install vivaldi?'; then
 		require_pacman vivaldi vivaldi-ffmpeg-codecs
+	fi
+
+	if yes_or_no 'browser' 'do you want to install edge?'; then
+		require_aur microsoft-edge-dev-bin
 	fi
 
 	if yes_or_no 'browser' 'do you want to install chrome?'; then

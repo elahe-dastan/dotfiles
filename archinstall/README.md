@@ -3,7 +3,8 @@
 [`archinstall`](https://github.com/archlinux/archinstall) is a guided/automated ArchLinux installer.
 This repository contains scripts and configuration that I use with `archinstall` to setup ArchLinux on desktop or
 server.
-For desktop, I prefer [sway](https://wiki.archlinux.org/title/Sway) but I have scripts for hyperland too.
+For desktop, I prefer [Sway](https://wiki.archlinux.org/title/Sway), but I have scripts for
+[Hyprland](https://github.com/hyprwm) too.
 
 ## How to
 
@@ -28,7 +29,7 @@ cd dotfiles/archinstall
 - Create Filesystems using e.g. `mkfs.fat -F32`, `mkfs.btrfs`. Again you can skip this step and then do it in `archinstall`
   TUI.
 
-- Enable NTP. It is a required step because incorrect time may cause issue with HTTPS.
+- Enable NTP. It is a required step because incorrect time may cause issue with HTTPS mirrors.
 
 ```bash
 datetimectl set-ntp true
@@ -49,24 +50,25 @@ archinstall --config server.json # Server installation
 
 On Arch Linux, Sway can get access to your seat using either
 
-- systemd-logind(8) and polkit
-- seatd, which will be installed alongside Sway as a dependency of wlroots
+- `systemd-logind(8)` and `polkit`
+- `seatd`, which will be installed alongside Sway as a dependency of wlroots
 
-If polkit is already installed on your system, Sway should automatically get access to your seat.
-Alternatively, if polkit is not installed on your system and you want to use seatd instead,
+If `polkit` is already installed on your system, Sway should automatically get access to your seat.
+Alternatively, if `polkit` is not installed on your system, and you want to use `seatd` instead,
 add yourself to the `seat` user group and enable/start `seatd.service`, re-log.
 
 ### BTRFS Sub-Volumes
 
-BTRFS sub-volumes are awesome, and you can use the following layout (coming from Ubuntu):
+BTRFS sub-volumes are awesome, and you can use the following layout (coming from Ubuntu and Fedora):
 
-| Name        | Mount Point           |
-| ----------- | --------------------- |
-| @           | /                     |
-| @home       | /home                 |
-| @log        | /var/log              |
-| @pkg        | /var/cache/pacman/pkg |
-| @.snapshots | /.snapshots           |
+| Name        | Mount Point             |
+| ----------- | ----------------------- |
+| @           | /                       |
+| @home       | /home                   |
+| @log        | /var/log                |
+| @pkg        | /var/cache/pacman/pkg   |
+| @.snapshots | /.snapshots             |
+| @images     | /var/lib/libvirt/images |
 
 Please note that, you need to set the wipe flag of the BTRFS partition to true for sub-volume creation to work.
 

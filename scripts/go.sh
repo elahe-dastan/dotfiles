@@ -38,7 +38,6 @@ main() {
 
 	go env -w GOPATH="$HOME/.cache/go"
 	go env -w GOBIN="$HOME/.local/bin"
-	# right now goproxy.cn isn't stable
 	go env -w GOPROXY="https://goproxy.io,goproxy.cn,direct"
 	# go env -w GOPROXY="https://goproxy.cn,direct"
 	# go env -w GONOSUMDB="gitlab.snapp.ir"
@@ -59,6 +58,7 @@ go-install-packages() {
 	require_go golang.org/x/tools/gopls
 	require_go golang.org/dl/gotip
 	require_go github.com/go-delve/delve/cmd/dlv
+	require_go github.com/google/wire/cmd/wire
 
 	msg "golangci-lint $(golangci-lint version)"
 }

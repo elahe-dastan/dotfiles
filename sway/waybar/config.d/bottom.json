@@ -20,6 +20,7 @@
     "network#baly",
     "network#aut",
     "network#offerland",
+    "network#speedify",
     "custom/touchpad"
   ],
   "idle_inhibitor": {
@@ -65,6 +66,11 @@
   },
   "network#offerland": {
     "interface": "offerland",
+    "format": "{ifname}: {ipaddr}",
+    "format-disconnected": ""
+  },
+  "network#speedify": {
+    "interface": "connectify0",
     "format": "{ifname}: {ipaddr}",
     "format-disconnected": ""
   },

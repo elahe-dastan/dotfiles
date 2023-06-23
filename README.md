@@ -20,38 +20,38 @@
 
 ## Introduction
 
-This repository contains my personal configurations for Ubuntu, Arch Linux (with sway window manager) and apple OSX,
-which was created in Fall 2013 when I was a lonely B.Sc.' student at the Amirkabir University of Technology.
-First, thank you for your visiting. A dotfiles repository is a personal repository, with it,
-you can manage your configuration between your systems, so I make this repository, a template repository, so you can easily start your personal one from it.
-Special thanks to [@elahe-dastan](https://github.com/elahe-dastan) for using this project and reporting its issues. Her unique contribution to this repository and my life is unforgettable.
+This repository contains Parham Alvani's personal dotfiles for configuring various tools in his development environment. These dotfiles are intended to be used on macOS and Linux systems.
+
+A dotfiles repository is a personal repository, and with it, you can manage your configuration between your systems. So I made this repository a template repository, so you can easily start your personal one from it.
+
+Special thanks to [@elahe-dastan](https://github.com/elahe-dastan/) for using this project and reporting its issues. Her unique contributions to this repository and my life are unforgettable.
 
 ## Installation
 
-![Compatibility](https://img.shields.io/badge/works%20on-macos-white?logo=macos&style=for-the-badge)
-![Compatibility](https://img.shields.io/badge/works%20on-ubuntu-orange?logo=ubuntu&style=for-the-badge)
-![Compatibility](https://img.shields.io/badge/works%20on-arch-blue?logo=archlinux&style=for-the-badge)
+> For installing arch itself, please check [here](./archinstall)
 
-The following command creates a basic directory structure and clones the _dotfiles_ repository:
+<p align="center">
+     <img alt="Compatibility" src="https://img.shields.io/badge/works%20on-macos-white?logo=macos&style=for-the-badge">
+     <img alt="Compatibility" src="https://img.shields.io/badge/works%20on-ubuntu-orange?logo=ubuntu&style=for-the-badge">
+     <img alt="Compatibility" src="https://img.shields.io/badge/works%20on-arch-blue?logo=archlinux&style=for-the-badge">
+</p>
 
-```bash
-curl -sL https://raw.githubusercontent.com/elahe-dastan/dotfiles/main/over-the-air-installation.sh | bash
-```
-
-Install required tools with `pacman`, `brew` or `apt`.
+To install these dotfiles on a new system, run the following command:
 
 ```bash
-./start.sh env
+git clone https://github.com/elahe-dastan/dotfiles.git ~/.dotfiles && cd ~/.dotfiles && ./start.sh env && ./install.sh
 ```
 
-Install configuration files with soft-links and installs plugins on vim.
-This script don't set the `zsh` as a default shell, so you need to set it manually.
+This will clone the repository into your home directory (`~/.dotfiles`), and run the `start.sh env` script to install required tools and then run `install.sh` script to
+to create symbolic links between the dotfiles and their expected locations in your home directory.
 
-```bash
-./install.sh
+After that, you set `zsh` as your default terminal:
+
+```
+sudo chsh $USER -s /bin/zsh
 ```
 
-Install useful fonts.
+Run `start.sh font` script to install useful fonts:
 
 ```bash
 ./start.sh font
@@ -63,29 +63,32 @@ Install useful fonts.
 touch $HOME/.config/git/config
 ```
 
-**Also** don't forget to install neovim plugins:
-
-```vim
-:PlugInstall
-```
-
-Then you can install other tools with `start.sh`, here are some examples:
+Run `start.sh neovim` script to install neovim with [ElieVIM](https://github.com/1995parham/elievim) configurations:
 
 ```bash
-# install docker with proxy
-./start.sh docker
-# install golang
-./start.sh go
-# install python
-./start.sh python
-# and many many more...
+./start.sh neovim
 ```
 
-Configuration of mentioned applications also is a part of this repository.
+## Usage
+
+These dotfiles configure various tools and applications, including:
+
+- Docker
+- yt-dlp
+- Alacritty
+- ...
+
+You can install most of them by running the following script:
+
+```bash
+./start.sh <name>
+```
+
+- [Read More...](./docs/scripts.md)
 
 ## Window Managers
 
-I am using `sway` and `hyprland` as my primary window managers. This repository
+I am using [`sway`](https://github.com/swaywm/) and [`hyprland`](https://github.com/hyprwm) as my primary window managers. This repository
 structured around creating soft-links and because of that the duplicate configurations
 between these window managers are gathered in `sway/`.
 
@@ -115,6 +118,93 @@ I use Emacs based on doom, and I found following configurations are useful to up
 Never close emacs, just use workspace to manage your work.
 To work with workspace just start with _SPACE-TAB_.
 
+<<<<<<< HEAD
+
 ## More
 
-- [scripts](./docs/scripts.md)
+- # [scripts](./docs/scripts.md)
+
+## Scripts
+
+These are applications that I use in a daily manner, so I created the following document about their usage
+and the way of installation.
+
+### Package Managers
+
+The following operating systems and their package managers are supported:
+
+- ArchLinux:
+  - [Pacman](https://archlinux.org/pacman/)
+  - [Yet another Yogurt](https://github.com/Jguer/yay)
+- OSx
+  - [Brew](https://brew.sh)
+
+### Applications
+
+For each package, I provided information on its installation script and how to run it on different operating systems.
+Applications with command names in all lowercase can be run from the command line interface, while those with title case need to be launched using your application launcher.
+If an application is marked with a (?), it means I had a negative experience with it on that particular operating system.
+
+To find software compatible with sway, always check the [are we wayland yet](https://arewewaylandyet.com/) website.
+
+|          Role          | How to Install?                   | Archlinux                                 | OSx            |
+| :--------------------: | :-------------------------------- | :---------------------------------------- | :------------- |
+|        Anydesk         | anydesk-bin (yay)                 | Anydesk                                   | -              |
+|        Browser         | ./start.sh browser                | Firefox, Firefox Developer Edition        | Firefox        |
+|        Calendar        | ./start.sh env                    | `cal`, `jcal`                             | -              |
+|         Camera         | guvcview (pacman)                 | `guvcview`                                | Photo Booth    |
+|  cat clone with wings  | ./start.sh env                    | `bat`                                     | `bat`          |
+|         Fetch          | ./start.sh fetch                  | `neofetch`, `onefetch`, `tokei`           | `              |
+|          BTop          | ./start.sh btop                   | `btop`                                    | `              |
+|    Container Engine    | ./start.sh docker                 | `docker`                                  | Docker Desktop |
+|    Container Engine    | ./start.sh podman                 | `podman`                                  | `podman`       |
+|    Desktop Manager     | ./archinstall/sway.sh             | `greetd`, `greetd-tuigreet`               | -              |
+|     Window Manager     | ./archinstall/sway.sh             | `sway`                                    | -              |
+|       Dictionary       | ./start.sh def                    | `def`                                     | `def`          |
+|    Download Manager    | ./start.sh env                    | `aria2c`                                  | `aria2c`       |
+|    Drawing Diagram     | ./start.sh drawio                 | `drawio`                                  | `drawio`       |
+|         Emacs          | ./start.sh emacs                  | `emacs`                                   | `emacs` (?)    |
+|   GNU Privacy Guard    | ./start.sh env                    | `gpg`                                     | -              |
+|     Habit Tracker      | ./start.sh dijo                   | `dijo`                                    | -              |
+|  HTTP/gRPC Load Test   | ./start.sh env                    | `k6`                                      | `k6`           |
+|      Image Editor      | ./start.sh image                  | GNU Image Manipulation Program, `convert` | Preview        |
+|      Image Viewer      | ./start.sh sway                   | `imv`                                     | Preview        |
+| Terminal Image Viewer  | ./start.sh env                    | `chafa`                                   | -              |
+|        Launcher        | ./start.sh sway                   | `rofi`                                    | -              |
+|        MP3 Tags        | ./start.sh mpd                    | Strawberry                                | iTunes         |
+|      Music Player      | ./start.sh mpd                    | `mpc`, `ncmpcpp`                          | -              |
+|         neovim         | ./start.sh neovim                 | `nvim`                                    | `nvim`         |
+|          vim           | ./start.sh env                    | `vim`                                     | `vim`          |
+|       Networking       | NetworkManager with `archinstall` | `nmtui`, `nmcli`                          | -              |
+| Network Time Protocol  | chrony (pacman)                   | -                                         | -              |
+|      Note Keeping      | xournalpp (pacman)                | Xournalpp                                 | Xournalpp      |
+|      Office Suite      | ./start.sh office                 | LibreOffice                               | Office         |
+|     Packet Sniffer     | ./start.sh wireshark              | Wireshark                                 | -              |
+|     Packet Sniffer     | termshark (pacman)                | `termshark`                               | -              |
+|    Password Manager    | ./start.sh gopass                 | `gopass`                                  | `gopass`       |
+|       PDF Viewer       | ./start.sh sway                   | `mupdf`                                   | Preview        |
+|     Power Manager      | -                                 | -                                         | -              |
+|         Skype          | skypeforlinux-preview-bin (yay)   | Skype Preview                             | Skype          |
+|       Clipboard        | ./start.sh sway                   | `wl-copy`, `wl-paste`                     | -              |
+|     Wayland Evnets     | wev (yay)                         | `wev`                                     | -              |
+|     Network Speed      | ./start.sh env                    | `speedtest-cli`                           | -              |
+|       Status Bar       | ./start.sh sway                   | `waybar`                                  | -              |
+|       Syncthing        | ./start.sh syncthing              | `syncthing`                               | `syncthing`    |
+|   Terminal Emulator    | ./start.sh alacritty              | `alacritty`                               | Alacritty (?)  |
+|   Terminal Emulator    | ./start.sh kitty                  | `kitty`                                   | Kitty          |
+|   Terminal Emulator    | ./start.sh foot                   | `foot`                                    | -              |
+|  Terminal Multiplexer  | ./start.sh env                    | `tmux`                                    | `tmux`         |
+|      Video Editor      | ffmpeg (pacman)                   | `ffmpeg`                                  | `ffmpeg`       |
+|      Video Player      | ./start.sh mpv                    | `mpv`                                     | `mpv`          |
+|       Wallpaper        | ./start.sh sway                   | `wpaperd`                                 | -              |
+|   Youtube Downloader   | ./start.sh yt-dlp                 | `yt-dlp`                                  | `yt-dlp`       |
+|        Timezone        | ./start.sh gotz                   | `gotz`                                    | -              |
+|      Google Cloud      | ./start.sh gcloud                 | `gcloud`                                  | -              |
+| Multi-OS Bootable Disk | ./start.sh ventoy                 | `ventoy`                                  | -              |
+|  LaTex/XeTex/Texlive   | ./start.sh texlive                | `tlmgr`, `xelatex`, `latexmk`, etc.       | -              |
+|     Android, Quest     | ./start.sh android                | `adb`, SideQuest                          | -              |
+|    Bandwidth Usage     | ./start.sh env                    | `bandwhich`                               | -              |
+|          TLDR          | ./start.sh tealdeer               | `tldr`                                    | -              |
+|          DNS           | ./start.sh blocky                 | `blocky`                                  | -              |
+|          JSON          | ./start.sh env                    | `jq`, `jless`                             | -              |
+|  Disk Usage Analyzer   | ./start.sh env                    | `dua`                                     | `dua`          |
