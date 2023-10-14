@@ -1,22 +1,11 @@
-```
-     _       _    __ _ _
-  __| | ___ | |_ / _(_) | ___  ___
- / _` |/ _ \| __| |_| | |/ _ \/ __|
-| (_| | (_) | |_|  _| | |  __/\__ \
- \__,_|\___/ \__|_| |_|_|\___||___/
-      _       _                    _           _
-  ___| | __ _| |__   ___        __| | __ _ ___| |_ __ _ _ __
- / _ \ |/ _` | '_ \ / _ \_____ / _` |/ _` / __| __/ _` | '_ \
-|  __/ | (_| | | | |  __/_____| (_| | (_| \__ \ || (_| | | | |
- \___|_|\__,_|_| |_|\___|      \__,_|\__,_|___/\__\__,_|_| |_|
+<h1 align="center">Elahe Dastan's dotfiles</h1>
 
-```
-
-![GitHub](https://img.shields.io/github/license/elahe-dastan/dotfiles?logo=gnu&style=flat-square)
-![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/elahe-dastan/dotfiles/install.yaml?label=install&logo=github&style=flat-square&branch=main)
-![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/elahe-dastan/dotfiles/sh-lint.yaml?label=lint&logo=github&style=flat-square&branch=main)
-[![Ansible](https://img.shields.io/badge/ansible-ready-black?logo=ansible&style=flat-square)](https://github.com/elahe-dastan-me/ansible-role)
-![GitHub repo size](https://img.shields.io/github/repo-size/elahe-dastan/dotfiles?style=flat-square)
+<p align="center">
+    <img alt="GitHub" src="https://img.shields.io/github/license/elahe-dastan/dotfiles?logo=gnu&style=for-the-badge">
+    <img alt="GitHub Workflow Status" src="https://img.shields.io/github/actions/workflow/status/elahe-dastan/dotfiles/install.yaml?logo=github&style=for-the-badge&label=install">
+    <img alt="GitHub Workflow Status" src="https://img.shields.io/github/actions/workflow/status/elahe-dastan/dotfiles/sh-lint.yaml?label=lint&logo=github&style=for-the-badge">
+    <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/elahe-dastan/dotfiles?style=for-the-badge">
+</p>
 
 ## Introduction
 
