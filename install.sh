@@ -63,12 +63,6 @@ install-conf() {
 	dotfile "wget" "wgetrc"
 }
 
-# wakatime
-install-wakatime() {
-	mkdir "$HOME/.wakatime" &>/dev/null || true
-	dotfile "wakatime" "wakatime.cfg"
-}
-
 # tmux
 install-tmux() {
 	dotfile "tmux" "tmux.conf"
@@ -118,7 +112,7 @@ install-general() {
 }
 
 # calls each module's install function.
-modules=(conf tmux wakatime zsh vim bin general)
+modules=(conf tmux zsh vim bin general)
 for module in "${modules[@]}"; do
 	message "$module" "---"
 	echo
