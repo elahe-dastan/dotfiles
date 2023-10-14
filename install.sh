@@ -20,7 +20,7 @@ source "$root/scripts/lib/header.sh"
 
 message "pre" "home directory found at $HOME"
 
-message "pre" "dotfiles found at $dotfiles_root"
+message "pre" "dotfiles found at $root"
 
 yes_to_all=0
 while getopts "hy" argv; do
