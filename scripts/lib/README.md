@@ -11,15 +11,6 @@
 These are scripts that help you maintain your dotfiles easier with having more fun.
 The library contains bash scripts for installing requirements, printing colorful messages, set-up proxy, etc.
 
-- [`tantive-iv`](https://en.wikipedia.org/wiki/Tantive_IV): MacBookPro (17,1) given by Snapp, and it should
-  return to them when I decide to leave. Last OSx installation happened on 14 Oct 2023. ✅
-
-  |   Type    |                     Value                     |
-  | :-------: | :-------------------------------------------: |
-  |  System   |       `MacBookPro17,1 (Z11B000E3LL/A)`        |
-  | Processor | `Apple M1 8 (4 performance and 4 efficiency)` |
-  |  Memory   |           `LPDDR4 - Hynix - 16 GB`            |
-
 ## How to use it?
 
 Clone this repository into your dotfiles's folder under `./scripts/lib`
