@@ -14,18 +14,37 @@ usage() {
 # neovim right now has very high cpu/memory usage and it is not suitable
 # for every system.
 # export dependencies=("neovim")
-export dependencies=("fetch")
+export dependencies=("fetch" "zsh" "bash")
 
-packages=(zsh tmux htop aria2 curl bat vim jq yamllint fzf mosh figlet)
+packages=(tmux htop aria2 curl bat vim jq yamllint fzf mosh figlet)
 
-brew_packages=(coreutils k6 inetutils inxi fontconfig wget tmuxp dua-cli git bash)
+brew_packages=(
+	coreutils
+	k6
+	inetutils
+	inxi
+	fontconfig
+	wget
+	tmuxp
+	dua-cli
+	git
+	bash
+	ripgrep
+	fd
+	glab
+	gh
+	just
+	bat-extras
+	wakatime-cli
+	muzzle
+)
 apt_packages=(bmon atop)
 pacman_packages=(
 	perl-image-exiftool
 	ripgrep
 	mtr
 	git-delta
-	fd ripgrep
+	fd
 	jless
 	chafa
 	dua-cli
@@ -47,6 +66,9 @@ pacman_packages=(
 	bandwhich
 	lsof
 	vhs
+	just
+	bat-extras
+	tcpdump
 )
 yay_packages=(jcal actionlint-bin cbonsai k6)
 
