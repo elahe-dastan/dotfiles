@@ -45,12 +45,6 @@
   # sslVersion = tlsv1.3
   maxRequests = 15
 
-[url "git@github.com:parham-alvani/"]
-  insteadOf = https://github.com/parham-alvani/
-
-[url "git@github.com:1995parham/"]
-  insteadOf = https://github.com/1995parham/
-
 # [url "git@github.com:"]
 #	insteadOf = https://github.com/
 
@@ -64,4 +58,3 @@
 [include]
   path = ~/.config/git/elahe.cfg
   path = ~/.config/git/alias.cfg
-  path = ~/.config/git-private/secret.cfg
