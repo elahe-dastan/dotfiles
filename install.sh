@@ -4,20 +4,19 @@ set -eu
 program_name=$0
 
 usage() {
-	echo "usage: $program_name [-h] [-y]"
-	echo "  -y   yes to all"
+	echo "usage: $program_name [-h]"
 	echo "  -h   display help"
 }
 
 # global variable that points to dotfiles root directory
-dotfiles_root="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+root="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # shellcheck source=scripts/lib/message.sh
-source "$dotfiles_root/scripts/lib/message.sh"
+source "$root/scripts/lib/message.sh"
 # shellcheck source=scripts/lib/linker.sh
-source "$dotfiles_root/scripts/lib/linker.sh"
+source "$root/scripts/lib/linker.sh"
 # shellcheck source=scripts/lib/header.sh
-source "$dotfiles_root/scripts/lib/header.sh"
+source "$root/scripts/lib/header.sh"
 
 message "pre" "home directory found at $HOME"
 
