@@ -24,7 +24,7 @@ $git_branch\
 $git_status\
 $git_state\
 $docker_context
-└ $character$jobs${env_var.http_proxy}
+└ ${custom.neovim}$character$jobs${env_var.http_proxy}
 """
 
 right_format = """
@@ -35,7 +35,7 @@ ${custom.uname}
 continuation_prompt = '[∙](bright-black) '
 
 [username]
-show_always = true
+show_always = false
 style_user = "bg:#1f1f1f fg:#45ff2f bold"
 style_root = "bg:#1f1f1f"
 format = '[$user ]($style)'
@@ -45,7 +45,8 @@ disabled = false
 style = "bg:#ffae1a fg:#1f1f1f bold"
 format = "[ $path ]($style)"
 truncation_length = 3
-truncate_to_repo = false
+truncate_to_repo = true
+truncation_symbol = ''
 home_symbol = "~"
 
 [directory.substitutions]
@@ -67,6 +68,8 @@ format = '[ $symbol ($version) ]($style)'
 symbol = " "
 style = "fd:#06969A"
 format = '[ $symbol $context ]($style) $path'
+only_with_files = false
+disabled = false
 
 [git_branch]
 symbol = ""
@@ -75,7 +78,7 @@ format = '[ $symbol $branch](fg:#b299e5)[ (\[ $remote_name/$remote_branch \]) ](
 
 [git_status]
 style = ""
-up_to_date = '[✔](fg:#adff2f)'
+up_to_date = '[](fg:#adff2f)'
 diverged = '[$ahead_count A](fg:#adff2f) [$behind_count B](fg:#ff2fad)'
 ahead = '[${count}A](fg:#adff2f)'
 behind = '[${count}B](fg:#adff2f)'
@@ -83,7 +86,7 @@ format = '[$ahead_behind (\[$all_status\])]($style)'
 
 [git_state]
 format = '[\($state( $progress_current of $progress_total)\)]($style) '
-cherry_pick = '[🍒 PICKING](bold red)'
+cherry_pick = '[ PICKING](bold red)'
 
 [golang]
 symbol = " "
@@ -113,14 +116,15 @@ format = '[ $time ]($style)'
 
 [kubernetes]
 disabled = false
+symbol = ' 󱃾  '
 format = '[ \[ $symbol](fg:#1e90ff)[$user](fg:#ff7f50)[ in ](fg:#ff50d0)[$namespace](#50ff7f)[ \]](fg:#1e90ff)'
 
 [kubernetes.user_aliases]
-"parham.alvani/api-okd4-teh-1-snappcloud-io:6443" = "parham.alvani @ teh-1"
-"parham.alvani/api-okd4-teh-2-snappcloud-io:6443" = "parham.alvani @ teh-2"
-"elahe.dastan/api-okd4-teh-1-snappcloud-io:6443" = "elahe.dastan @ teh-1"
-"elahe.dastan/api-okd4-teh-2-snappcloud-io:6443" = "elahe.dastan @ teh-2"
-"parham.alvani/api-okd-eu-central-1-cloud-baly-app:6443" = "parham.alvani @ baly"
+"parham.alvani/api-okd4-teh-1-snappcloud-io:6443" = "me @ site-1"
+"parham.alvani/api-okd4-teh-2-snappcloud-io:6443" = "me @ site-2"
+"elahe.dastan/api-okd4-teh-1-snappcloud-io:6443" = "her @ site-1"
+"elahe.dastan/api-okd4-teh-2-snappcloud-io:6443" = "her @ site-2"
+"parham.alvani/api-okd-eu-central-1-cloud-baly-app:6443" = "me @ baly"
 
 [hostname]
 ssh_only = false
@@ -146,6 +150,13 @@ style = 'fg:#ff0080'
 symbol = '  '
 description = 'kernel version'
 
+[custom.neovim]
+command = ''
+when = 'test -n "$NVIM"'
+style = 'fg:#32cd32'
+symbol = '  '
+description = 'are we in neovim?'
+
 [env_var.http_proxy]
 variable = "http_proxy"
 format = " 󰞇 "
@@ -154,5 +165,5 @@ disabled = false
 [aws]
 format = '[$symbol($profile )(\($region\) )]($style)'
 style = 'bold blue'
-symbol = '🅰 '
+symbol = ' 󰸏 '
 disabled = false
