@@ -94,7 +94,7 @@ install-zsh() {
 
 	# provide dotfile home variable
 	if ! grep -q -F "export DOTFILES_ROOT=" "$HOME/.zshrc"; then
-		echo "export DOTFILES_ROOT=\"$dotfiles_root\"" | tee -a "$HOME/.zshrc"
+		echo "export DOTFILES_ROOT=\"$root\"" | tee -a "$HOME/.zshrc"
 	fi
 }
 
